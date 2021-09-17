@@ -1,0 +1,9 @@
+com/laynefongx/hodgepodge/bean/I18nDBMessageSource.class
+com/laynefongx/hodgepodge/bean/I18nMessageSource.class
+com/laynefongx/hodgepodge/service/I18nMessageService.class
+com/laynefongx/hodgepodge/bean/I18nLocaleConfig.class
+com/laynefongx/hodgepodge/bean/I18nLocaleConfig$I18nLocalResolver.class
+com/laynefongx/hodgepodge/controller/I18nController.class
+com/laynefongx/hodgepodge/advice/I18nResponseBodyAdvice.class
+com/laynefongx/hodgepodge/enums/LanguageEnums.class
+com/laynefongx/hodgepodge/bean/I18nLocaleInterceptorConfig.class
