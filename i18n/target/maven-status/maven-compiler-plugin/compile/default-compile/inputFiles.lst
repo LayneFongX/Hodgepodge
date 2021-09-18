@@ -1,8 +1,0 @@
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/enums/LanguageEnums.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/service/I18nMessageService.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/bean/I18nLocaleConfig.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/advice/I18nResponseBodyAdvice.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/bean/I18nMessageSource.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/bean/I18nLocaleInterceptorConfig.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/bean/I18nDBMessageSource.java
-/Users/fengl/WorkSpace/LayneFongX/Hodgepodge/i18n/src/main/java/com/laynefongx/hodgepodge/controller/I18nController.java

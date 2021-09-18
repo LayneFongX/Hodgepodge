@@ -1,6 +1,0 @@
-com/laynefongx/hodgepodge/domain/SocialUser.class
-com/laynefongx/hodgepodge/service/IPriorityQueueService.class
-com/laynefongx/hodgepodge/controller/PriorityQueueController.class
-com/laynefongx/hodgepodge/service/impl/PriorityQueueService.class
-com/laynefongx/hodgepodge/domain/SocialUser$SocialUserBuilder.class
-com/laynefongx/hodgepodge/domain/SocialUser$SocialUserComparator.class
