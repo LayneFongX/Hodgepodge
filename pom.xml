@@ -22,7 +22,7 @@
         <lombok.version>1.18.12</lombok.version>
         <guava.version>28.2-jre</guava.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
-        <aspectj.version>1.8.13</aspectj.version>
+        <aspectj.version>1.9.4</aspectj.version>
     </properties>
 
 
@@ -127,7 +127,7 @@
 
             <dependency>
                 <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
+                <artifactId>aspectjtools</artifactId>
                 <version>${aspectj.version}</version>
             </dependency>
 

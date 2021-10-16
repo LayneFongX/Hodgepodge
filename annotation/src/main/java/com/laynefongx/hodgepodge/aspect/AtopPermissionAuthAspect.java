@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -27,7 +28,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Aspect
 @Component
-@Order(10)
 public class AtopPermissionAuthAspect {
 
     /**
@@ -36,10 +36,10 @@ public class AtopPermissionAuthAspect {
     private static final Map<String, AtopPermissionAuthMeta> methodPermissionMeta = new ConcurrentHashMap<>();
 
     /**
-     * 切面，定义(只拦截 @AuthCheck 注释的函数)
+     * 切面，定义拦截指定注解
      */
-    @Pointcut(value = "execution(* com.laynefongx.hodgepodge.*.controller..*.*(..))")
-    private void permissionCheckCut() {
+    @Pointcut(value = "@annotation(com.laynefongx.hodgepodge.annotation.AtopPermissionAuth)")
+    private void pointcut() {
     }
 
     /**
@@ -47,7 +47,7 @@ public class AtopPermissionAuthAspect {
      *
      * @param joinPoint 切面点
      */
-    @Around("permissionCheckCut()")
+    @Around("pointcut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         // 获取切面方法
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
