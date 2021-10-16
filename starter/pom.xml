@@ -45,6 +45,11 @@
             <artifactId>disruptor</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.laynefong.hodgepodge</groupId>
+            <artifactId>annotation</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

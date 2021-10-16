@@ -71,6 +71,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.laynefong.hodgepodge</groupId>
+                <artifactId>annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
@@ -139,6 +145,7 @@
         <module>junit</module>
         <module>forkjoin</module>
         <module>disruptor</module>
+        <module>annotation</module>
     </modules>
 
 </project>
