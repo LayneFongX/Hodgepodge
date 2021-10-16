@@ -18,4 +18,10 @@ public @interface AtopPermissionAuthParam {
      */
     String methodParamName() default "";
 
+    /**
+     * 入参分隔符- _ |
+     *
+     */
+    String methodSplit() default "";
+
 }
