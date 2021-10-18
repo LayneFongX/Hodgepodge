@@ -1,7 +1,7 @@
 package com.laynefongx.hodgepodge.domain;
 
-import com.laynefongx.hodgepodge.enums.PermissionTypeEnum;
-import com.laynefongx.hodgepodge.enums.UserRoleTypeEnum;
+import com.laynefongx.hodgepodge.enums.VerifyMethodParamsEnum;
+import com.laynefongx.hodgepodge.enums.VerifyMethodsEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,19 +14,20 @@ import java.util.Map;
 @ToString
 public class AtopPermissionAuthMeta {
 
-    private PermissionTypeEnum permissionType;
-
     /**
-     * 角色code（多个逗号分隔）
-     * 说明：Inox项目暂时没有用到，后期可能用到
+     * 要调用的校验方法信息
      */
-    private List<UserRoleTypeEnum> roleTypes;
-
+    private List<VerifyMethodsEnum> verifyMethodsList;
 
     /**
-     * 授权参数信息,Map<目标参数,方法中参数名>
+     * 是否从公共参数中获取信息 目前是获取uid和gid
+     */
+    private Boolean isParseApiRequestDO;
+
+    /**
+     * 授权参数信息,Map<参数名称,映射的校验方法中的参数名称>
      *
      * @return 返回授权参数列表
      */
-    private Map<String, String> authParams;
+    private List<VerifyMethodParamsEnum> verifyMethodParamsList;
 }

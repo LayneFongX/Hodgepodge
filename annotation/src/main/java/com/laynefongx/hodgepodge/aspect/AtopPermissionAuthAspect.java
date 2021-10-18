@@ -3,11 +3,9 @@ package com.laynefongx.hodgepodge.aspect;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.annotation.AtopPermissionAuth;
-import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParam;
 import com.laynefongx.hodgepodge.domain.AtopPermissionAuthMeta;
 import com.laynefongx.hodgepodge.utils.ClassUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,11 +14,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Aspect
@@ -28,9 +25,9 @@ import java.util.stream.Collectors;
 public class AtopPermissionAuthAspect {
 
     /**
-     * 静态方法权限配置元数据
+     * key为方法名称 value为该方法元数据
      */
-    private static final Map<String, AtopPermissionAuthMeta> methodPermissionMeta = new ConcurrentHashMap<>();
+    private static final Map<String, AtopPermissionAuthMeta> permissionMetaMap = new ConcurrentHashMap<>();
 
     /**
      * 切面，定义拦截指定注解
@@ -90,21 +87,21 @@ public class AtopPermissionAuthAspect {
      */
     private Map<String, String> getPermissionAuthParams(MethodSignature methodSignature, Object[] args, AtopPermissionAuthMeta authMeta) {
         Map<String, String> result = new HashMap<>();
-        //获取方法参数
-        String[] parameterNames = methodSignature.getParameterNames();
-        if (parameterNames == null || parameterNames.length <= 0) {
-            log.warn("getPermissionAuthParams parameters is null,method={}", methodSignature.getMethod().toGenericString());
-            return result;
-        }
-
-        //获取参数
-        for (Map.Entry<String, String> authParam : authMeta.getAuthParams().entrySet()) {
-            int paramIndex = ArrayUtils.indexOf(parameterNames, authParam.getValue());
-            if (paramIndex < 0 || paramIndex >= args.length) {
-                continue;
-            }
-            result.putIfAbsent(authParam.getKey(), String.valueOf(args[paramIndex]));
-        }
+        // //获取方法参数
+        // String[] parameterNames = methodSignature.getParameterNames();
+        // if (parameterNames == null || parameterNames.length <= 0) {
+        //     log.warn("getPermissionAuthParams parameters is null,method={}", methodSignature.getMethod().toGenericString());
+        //     return result;
+        // }
+        //
+        // //获取参数
+        // for (Map.Entry<String, String> authParam : authMeta.getAuthParams().entrySet()) {
+        //     int paramIndex = ArrayUtils.indexOf(parameterNames, authParam.getValue());
+        //     if (paramIndex < 0 || paramIndex >= args.length) {
+        //         continue;
+        //     }
+        //     result.putIfAbsent(authParam.getKey(), String.valueOf(args[paramIndex]));
+        // }
         return result;
     }
 
@@ -115,19 +112,18 @@ public class AtopPermissionAuthAspect {
      * @return 返回权限配置
      */
     private AtopPermissionAuthMeta getPermissionAuthMeta(Method method) {
-        //获取缓存
-        if (methodPermissionMeta.containsKey(method.toGenericString())) {
-            return methodPermissionMeta.get(method.toGenericString());
+        if (permissionMetaMap.containsKey(method.toGenericString())) {
+            return permissionMetaMap.get(method.toGenericString());
         }
-        AtopPermissionAuthMeta result = new AtopPermissionAuthMeta();
-        AtopPermissionAuth authPermission = ClassUtils.getAnnotationBySource(method, AtopPermissionAuth.class);
-        result.setPermissionType(authPermission.permissionType());
-        result.setRoleTypes(Arrays.asList(authPermission.userRoleTypes()));
-        result.setAuthParams(Arrays.stream(authPermission.authParams()).collect(Collectors.toMap(AtopPermissionAuthParam::name,
-                AtopPermissionAuthParam::methodParamName)));
-        methodPermissionMeta.putIfAbsent(method.toGenericString(), result);
-        log.info("get method annotation method={} annotation={}", method.toGenericString(), JSON.toJSONString(authPermission));
-        return result;
+        AtopPermissionAuth permissionAuth = ClassUtils.getAnnotationBySource(method, AtopPermissionAuth.class);
+        AtopPermissionAuthMeta authMeta = new AtopPermissionAuthMeta();
+        authMeta.setVerifyMethodsList(List.of(permissionAuth.methods()));
+        authMeta.setIsParseApiRequestDO(permissionAuth.isParseApiRequestDO());
+        authMeta.setVerifyMethodParamsList(List.of(permissionAuth.methodParams()));
+        permissionMetaMap.putIfAbsent(method.toGenericString(), authMeta);
+        log.info("AtopPermissionAuthAspect getPermissionAuthMeta method = {} , permissionAuth={}", method.toGenericString(),
+                JSON.toJSONString(permissionAuth));
+        return authMeta;
     }
 
 }

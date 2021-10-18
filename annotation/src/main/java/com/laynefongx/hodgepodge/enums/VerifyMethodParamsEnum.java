@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum PermissionParamFiledEnum {
+public enum VerifyMethodParamsEnum {
 
     NONE("NONE", ""),
 

@@ -1,6 +1,6 @@
 package com.laynefongx.hodgepodge.annotation;
 
-import com.laynefongx.hodgepodge.enums.PermissionParamFiledEnum;
+import com.laynefongx.hodgepodge.enums.VerifyMethodParamsEnum;
 
 import java.lang.annotation.*;
 
@@ -11,20 +11,14 @@ import java.lang.annotation.*;
 public @interface AtopPermissionAuthParam {
 
     /**
-     * 权限校验-参数注解
-     */
-    String name() default "";
-
-    /**
      * 参数在方法入参名字
      */
     String methodParamName() default "";
 
     /**
-     * 入参分隔符- _ |
+     * 参数对应的校验方法的参数映射
+     * @return
      */
-    String methodSplit() default "";
-
-    PermissionParamFiledEnum paramFiled() default PermissionParamFiledEnum.NONE;
+    VerifyMethodParamsEnum paramMapping() default VerifyMethodParamsEnum.NONE;
 
 }

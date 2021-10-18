@@ -1,7 +1,7 @@
 package com.laynefongx.hodgepodge.annotation;
 
-import com.laynefongx.hodgepodge.enums.PermissionTypeEnum;
-import com.laynefongx.hodgepodge.enums.UserRoleTypeEnum;
+import com.laynefongx.hodgepodge.enums.VerifyMethodParamsEnum;
+import com.laynefongx.hodgepodge.enums.VerifyMethodsEnum;
 
 import java.lang.annotation.*;
 
@@ -11,18 +11,24 @@ import java.lang.annotation.*;
 @Inherited
 public @interface AtopPermissionAuth {
 
-    PermissionTypeEnum permissionType() default PermissionTypeEnum.USER_HOME;
+    /**
+     * 要调用的校验方法
+     *
+     * @return
+     */
+    VerifyMethodsEnum[] methods() default {};
 
     /**
-     * 用户角色code,任意角色通过校验即可
+     * 是否解析公共参数 目前是在公共参数中获取用户ID和家庭ID
+     * @return
      */
-    UserRoleTypeEnum[] userRoleTypes() default {};
+    boolean isParseApiRequestDO() default false;
 
     /**
      * 需要校验的参数信息
      *
      * @return 返回授权参数列表
      */
-    AtopPermissionAuthParam[] authParams() default {};
+    VerifyMethodParamsEnum[] methodParams() default {};
 
 }
