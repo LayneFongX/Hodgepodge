@@ -1,6 +1,6 @@
 package com.laynefongx.hodgepodge.annotation;
 
-import com.laynefongx.hodgepodge.enums.VerifyMethodsEnum;
+import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
 
 import java.lang.annotation.*;
 
@@ -15,19 +15,13 @@ public @interface AtopPermissionAuth {
      *
      * @return
      */
-    VerifyMethodsEnum[] methods() default {};
-
-    /**
-     * 是否解析公共参数 目前是在公共参数中获取用户ID和家庭ID
-     * @return
-     */
-    boolean isParseApiRequestDO() default false;
+    VerifyMethodEnum method();
 
     /**
      * 需要校验的参数信息
      *
      * @return 返回授权参数列表
      */
-    AtopPermissionAuthParam[] methodParams() default {};
+    AtopPermissionAuthParam methodParams();
 
 }

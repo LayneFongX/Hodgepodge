@@ -1,6 +1,6 @@
 package com.laynefongx.hodgepodge.annotation;
 
-import com.laynefongx.hodgepodge.enums.VerifyMethodParamsEnum;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.*;
 
@@ -11,15 +11,45 @@ import java.lang.annotation.*;
 public @interface AtopPermissionAuthParam {
 
     /**
-     * 参数在方法入参名字
-     */
-    String methodParamName() default "";
-
-    /**
-     * 参数对应的校验方法的参数映射
+     * 公共参数
      *
      * @return
      */
-    String paramMapping() default "";
+    String apiRequestDO() default StringUtils.EMPTY;
+
+    /**
+     * 家庭ID
+     */
+    String homeId() default StringUtils.EMPTY;
+
+    /**
+     * 用户ID
+     */
+    String uid() default StringUtils.EMPTY;
+
+    /**
+     * 设备ID集合
+     */
+    String deviceIds() default StringUtils.EMPTY;
+
+    /**
+     * 房间ID集合
+     */
+    String roomIds() default StringUtils.EMPTY;
+
+    /**
+     * 群组ID集合
+     */
+    String groupIds() default StringUtils.EMPTY;
+
+    /**
+     * 场景ID集合
+     */
+    String sceneIds() default StringUtils.EMPTY;
+
+    /**
+     * 网关ID
+     */
+    String gatewayId() default StringUtils.EMPTY;
 
 }

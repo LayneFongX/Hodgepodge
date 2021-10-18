@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum VerifyMethodsEnum {
+public enum VerifyMethodEnum {
 
     VERIFY_HOME_OWNER("verifyHomeOwner", "校验用户是否是家庭的owner"),
 
@@ -29,9 +29,10 @@ public enum VerifyMethodsEnum {
 
     VERIFY_DEVICE_BELONG_GATEWAY("verifyDeviceBelongGateway", "校验设备是否属于网关"),
 
-    VERIFY_DEVICE_BELONG_HOME("verifyDeviceBelongHome", "校验设备是否属于家庭"),;
+    VERIFY_DEVICE_BELONG_HOME("verifyDeviceBelongHome", "校验设备是否属于家庭"),
+    ;
 
-    private String code;
+    private String methodName;
 
     private String desc;
 
