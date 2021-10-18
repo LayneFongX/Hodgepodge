@@ -1,6 +1,5 @@
 package com.laynefongx.hodgepodge.annotation;
 
-import com.laynefongx.hodgepodge.enums.VerifyMethodParamsEnum;
 import com.laynefongx.hodgepodge.enums.VerifyMethodsEnum;
 
 import java.lang.annotation.*;

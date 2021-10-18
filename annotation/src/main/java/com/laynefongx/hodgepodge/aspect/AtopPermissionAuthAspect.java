@@ -7,6 +7,7 @@ import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParam;
 import com.laynefongx.hodgepodge.domain.AtopPermissionAuthMeta;
 import com.laynefongx.hodgepodge.utils.ClassUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -89,23 +90,24 @@ public class AtopPermissionAuthAspect {
      * @return 返回授权权限参数信息
      */
     private Map<String, String> getPermissionAuthParams(MethodSignature methodSignature, Object[] args, AtopPermissionAuthMeta authMeta) {
-        Map<String, String> result = new HashMap<>();
-        // //获取方法参数
-        // String[] parameterNames = methodSignature.getParameterNames();
-        // if (parameterNames == null || parameterNames.length <= 0) {
-        //     log.warn("getPermissionAuthParams parameters is null,method={}", methodSignature.getMethod().toGenericString());
-        //     return result;
-        // }
-        //
-        // //获取参数
-        // for (Map.Entry<String, String> authParam : authMeta.getAuthParams().entrySet()) {
-        //     int paramIndex = ArrayUtils.indexOf(parameterNames, authParam.getValue());
-        //     if (paramIndex < 0 || paramIndex >= args.length) {
-        //         continue;
-        //     }
-        //     result.putIfAbsent(authParam.getKey(), String.valueOf(args[paramIndex]));
-        // }
-        return result;
+        Map<String, String> paramsMap = new HashMap<>();
+        //获取方法参数
+        String[] parameterNames = methodSignature.getParameterNames();
+        if (parameterNames == null || parameterNames.length <= 0) {
+            log.warn("AtopPermissionAuthAspect getPermissionAuthParams parameters is null , method = {}",
+                    methodSignature.getMethod().toGenericString());
+            return paramsMap;
+        }
+
+        //获取参数
+        for (Map.Entry<String, String> authParam : authMeta.getVerifyMethodParamsMap().entrySet()) {
+            int paramIndex = ArrayUtils.indexOf(parameterNames, authParam.getKey());
+            if (paramIndex < 0 || paramIndex >= args.length) {
+                continue;
+            }
+            paramsMap.putIfAbsent(authParam.getValue(), String.valueOf(args[paramIndex]));
+        }
+        return paramsMap;
     }
 
     /**
