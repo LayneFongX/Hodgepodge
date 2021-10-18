@@ -29,5 +29,5 @@ public class AtopPermissionAuthMeta {
      *
      * @return 返回授权参数列表
      */
-    private List<VerifyMethodParamsEnum> verifyMethodParamsList;
+    private Map<String,String> verifyMethodParamsMap;
 }

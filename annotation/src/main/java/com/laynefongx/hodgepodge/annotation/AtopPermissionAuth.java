@@ -29,6 +29,6 @@ public @interface AtopPermissionAuth {
      *
      * @return 返回授权参数列表
      */
-    VerifyMethodParamsEnum[] methodParams() default {};
+    AtopPermissionAuthParam[] methodParams() default {};
 
 }

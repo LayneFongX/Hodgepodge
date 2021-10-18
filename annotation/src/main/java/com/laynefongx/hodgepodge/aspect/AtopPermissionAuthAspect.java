@@ -3,6 +3,7 @@ package com.laynefongx.hodgepodge.aspect;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.annotation.AtopPermissionAuth;
+import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParam;
 import com.laynefongx.hodgepodge.domain.AtopPermissionAuthMeta;
 import com.laynefongx.hodgepodge.utils.ClassUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +15,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Aspect
@@ -119,7 +122,8 @@ public class AtopPermissionAuthAspect {
         AtopPermissionAuthMeta authMeta = new AtopPermissionAuthMeta();
         authMeta.setVerifyMethodsList(List.of(permissionAuth.methods()));
         authMeta.setIsParseApiRequestDO(permissionAuth.isParseApiRequestDO());
-        authMeta.setVerifyMethodParamsList(List.of(permissionAuth.methodParams()));
+        authMeta.setVerifyMethodParamsMap(Arrays.stream(permissionAuth.methodParams())
+                .collect(Collectors.toMap(AtopPermissionAuthParam::methodParamName, AtopPermissionAuthParam::paramMapping)));
         permissionMetaMap.putIfAbsent(method.toGenericString(), authMeta);
         log.info("AtopPermissionAuthAspect getPermissionAuthMeta method = {} , permissionAuth={}", method.toGenericString(),
                 JSON.toJSONString(permissionAuth));

@@ -17,8 +17,9 @@ public @interface AtopPermissionAuthParam {
 
     /**
      * 参数对应的校验方法的参数映射
+     *
      * @return
      */
-    VerifyMethodParamsEnum paramMapping() default VerifyMethodParamsEnum.NONE;
+    String paramMapping() default "";
 
 }
