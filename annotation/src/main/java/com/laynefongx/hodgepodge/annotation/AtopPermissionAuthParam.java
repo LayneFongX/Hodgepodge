@@ -1,5 +1,7 @@
 package com.laynefongx.hodgepodge.annotation;
 
+import com.laynefongx.hodgepodge.enums.PermissionParamFiledEnum;
+
 import java.lang.annotation.*;
 
 @Target({ElementType.PARAMETER})
@@ -20,8 +22,9 @@ public @interface AtopPermissionAuthParam {
 
     /**
      * 入参分隔符- _ |
-     *
      */
     String methodSplit() default "";
+
+    PermissionParamFiledEnum paramFiled() default PermissionParamFiledEnum.NONE;
 
 }
