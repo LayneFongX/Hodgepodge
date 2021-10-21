@@ -1,15 +1,13 @@
 package com.laynefongx.hodgepodge.verify;
 
 import com.google.common.collect.ImmutableMap.Builder;
-import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParam;
+import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParams;
 import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * @author Legal[guo.li@tuya.com]
@@ -20,13 +18,13 @@ import java.util.function.Function;
 @Service
 public class VerifyBizService {
 
-    public void matchVerifyMethodByMethodName(String methodName, AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void matchVerifyMethodByMethodName(String methodName, AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         methodMappings.get(methodName).accept(verifyMethodParams,argsMap);
     }
 
 
-    private final Map<String, BiConsumer<AtopPermissionAuthParam, Map<String,Object>>> methodMappings
-            = new Builder<String, BiConsumer<AtopPermissionAuthParam, Map<String,Object>>>()
+    private final Map<String, BiConsumer<AtopPermissionAuthParams, Map<String,Object>>> methodMappings
+            = new Builder<String, BiConsumer<AtopPermissionAuthParams, Map<String,Object>>>()
             .put(VerifyMethodEnum.VERIFY_HOME_OWNER.getMethodName(),
                     (verifyMethodParams, argsMap) -> verifyHomeOwner(verifyMethodParams, argsMap))
             .put(VerifyMethodEnum.VERIFY_HOME_ADMIN.getMethodName(),
@@ -54,63 +52,63 @@ public class VerifyBizService {
             .build();
 
 
-    public void verifyHomeOwner(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyHomeOwner(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
 
     }
 
 
-    public void verifyHomeAdmin(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyHomeAdmin(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyHomeMember(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyHomeMember(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserManageDevice(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserManageDevice(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserControlDevice(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserControlDevice(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserManageRoom(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserManageRoom(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserQueryRoom(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserQueryRoom(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserManageGroup(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserManageGroup(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserQueryGroup(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserQueryGroup(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyUserManageScene(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyUserManageScene(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyDeviceBelongGateway(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyDeviceBelongGateway(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 
 
-    public void verifyDeviceBelongHome(AtopPermissionAuthParam verifyMethodParams, Map<String,Object> argsMap) {
+    public void verifyDeviceBelongHome(AtopPermissionAuthParams verifyMethodParams, Map<String,Object> argsMap) {
         // do something
     }
 

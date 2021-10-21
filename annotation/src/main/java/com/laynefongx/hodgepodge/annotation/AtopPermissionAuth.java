@@ -8,6 +8,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
+@Repeatable(AtopPermissionAuthContainer.class)
 public @interface AtopPermissionAuth {
 
     /**
@@ -22,6 +23,6 @@ public @interface AtopPermissionAuth {
      *
      * @return 返回授权参数列表
      */
-    AtopPermissionAuthParam methodParams();
+    AtopPermissionAuthParams methodParams();
 
 }

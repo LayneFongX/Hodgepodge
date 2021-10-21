@@ -3,7 +3,6 @@ package com.laynefongx.hodgepodge.aspect;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.annotation.AtopPermissionAuth;
-import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParam;
 import com.laynefongx.hodgepodge.domain.AtopPermissionAuthMeta;
 import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
 import com.laynefongx.hodgepodge.utils.ClassUtils;
@@ -16,7 +15,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.util.SocketUtils;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
@@ -34,12 +33,13 @@ public class AtopPermissionAuthAspect {
     /**
      * key为方法名称 value为该方法元数据
      */
-    private static final Map<String, AtopPermissionAuthMeta> permissionMetaMap = new ConcurrentHashMap<>();
+    private static final Map<String, List<AtopPermissionAuthMeta>> permissionMetaMap = new ConcurrentHashMap<>();
 
     /**
      * 切面，定义拦截指定注解
      */
-    @Pointcut(value = "execution(* com.laynefongx.hodgepodge.*..*.*(..))")
+    @Pointcut(value = "execution(* com.laynefongx.hodgepodge..*.*(..))")
+    // @Pointcut(value = "@annotation(com.tuya.europa.auth.annotation.AtopPermissionAuth)")
     private void pointcut() {
     }
 
@@ -51,20 +51,24 @@ public class AtopPermissionAuthAspect {
     @Around("pointcut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         // 获取切面方法
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Method targetMethod = methodSignature.getMethod();
-        Class<?> declaringClass = targetMethod.getDeclaringClass();
-        String simpleName = declaringClass.getSimpleName();
-        String className = declaringClass.getName();
-        System.out.println(className + "." + targetMethod.getName());
-        // // 获取注解方法的元数据
-        // AtopPermissionAuthMeta authMeta = getPermissionAuthMeta(targetMethod);
-        // Object[] args = joinPoint.getArgs();
-        // Map<String, Object> argsMap = getArgsMap(methodSignature, args);
-        // log.info("AtopPermissionAuthAspect doAround argsMap = {}", JSONObject.toJSONString(argsMap));
-        // VerifyMethodEnum methodsEnum = authMeta.getVerifyMethod();
-        // String methodName = methodsEnum.getMethodName();
-        // verifyBizService.matchVerifyMethodByMethodName(methodName, authMeta.getVerifyMethodParams(), argsMap);
+        try {
+            MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+            Method targetMethod = methodSignature.getMethod();
+            Class<?> declaringClass = targetMethod.getDeclaringClass();
+            String methodFullPathName = declaringClass.getName() + "." + targetMethod.getName();
+            // 获取注解方法的元数据
+            List<AtopPermissionAuthMeta> authMetaList = getPermissionAuthMeta(targetMethod);
+            for (AtopPermissionAuthMeta authMeta : authMetaList) {
+                Object[] args = joinPoint.getArgs();
+                Map<String, Object> argsMap = getArgsMap(methodSignature, args);
+                log.info("AtopPermissionAuthAspect doAround argsMap = {}", JSONObject.toJSONString(argsMap));
+                VerifyMethodEnum methodsEnum = authMeta.getVerifyMethod();
+                String methodName = methodsEnum.getMethodName();
+                verifyBizService.matchVerifyMethodByMethodName(methodName, authMeta.getVerifyMethodParams(), argsMap);
+            }
+        } catch (Exception e) {
+            log.warn("AtopPermissionAuthAspect doAround error", e);
+        }
         return joinPoint.proceed();
     }
 
@@ -74,18 +78,28 @@ public class AtopPermissionAuthAspect {
      * @param method 切面方法
      * @return 返回权限配置
      */
-    private AtopPermissionAuthMeta getPermissionAuthMeta(Method method) {
+    private List<AtopPermissionAuthMeta> getPermissionAuthMeta(Method method) {
         if (permissionMetaMap.containsKey(method.toGenericString())) {
             return permissionMetaMap.get(method.toGenericString());
         }
-        AtopPermissionAuth permissionAuth = ClassUtils.getAnnotationBySource(method, AtopPermissionAuth.class);
-        AtopPermissionAuthMeta authMeta = new AtopPermissionAuthMeta();
-        authMeta.setVerifyMethod(permissionAuth.method());
-        authMeta.setVerifyMethodParams(permissionAuth.methodParams());
-        permissionMetaMap.putIfAbsent(method.toGenericString(), authMeta);
-        log.info("AtopPermissionAuthAspect getPermissionAuthMeta method = {} , permissionAuth={}", method.toGenericString(),
-                JSON.toJSONString(permissionAuth));
-        return authMeta;
+        List<AtopPermissionAuthMeta> authMetaList = new ArrayList<>();
+        List<AtopPermissionAuth> permissionAuthList = ClassUtils.getAnnotationBySource(method, AtopPermissionAuth.class);
+        if (CollectionUtils.isEmpty(permissionAuthList)) {
+            return authMetaList;
+        }
+        for (AtopPermissionAuth permissionAuth : permissionAuthList) {
+            if (Objects.isNull(permissionAuth)) {
+                continue;
+            }
+            AtopPermissionAuthMeta authMeta = new AtopPermissionAuthMeta();
+            authMeta.setVerifyMethod(permissionAuth.method());
+            authMeta.setVerifyMethodParams(permissionAuth.methodParams());
+            log.info("AtopPermissionAuthAspect getPermissionAuthMeta method = {} , permissionAuth={}", method.toGenericString(),
+                    JSON.toJSONString(permissionAuth));
+            authMetaList.add(authMeta);
+        }
+        permissionMetaMap.putIfAbsent(method.toGenericString(), authMetaList);
+        return authMetaList;
     }
 
 

@@ -1,12 +1,10 @@
 package com.laynefongx.hodgepodge.domain;
 
-import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParam;
+import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParams;
 import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +21,5 @@ public class AtopPermissionAuthMeta {
      *
      * @return 返回授权参数列表
      */
-    private AtopPermissionAuthParam verifyMethodParams;
+    private AtopPermissionAuthParams verifyMethodParams;
 }

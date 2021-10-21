@@ -8,14 +8,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface AtopPermissionAuthParam {
-
-    /**
-     * 公共参数
-     *
-     * @return
-     */
-    String apiRequestDO() default StringUtils.EMPTY;
+public @interface AtopPermissionAuthParams {
 
     /**
      * 家庭ID
