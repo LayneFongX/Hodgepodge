@@ -22,8 +22,8 @@ public class AnnotationController {
 
     @GetMapping("/sayHello")
     @AtopPermissionAuth(method = VerifyMethodEnum.VERIFY_DEVICE_BELONG_HOME,
-            methodParams = @AtopPermissionAuthParam(apiRequestDO = "apiRequestDO", deviceIds = "deviceId", homeId = "home1", groupIds = "home2"))
-    public String sayHello(String deviceId, String home1, String home2, ApiRequestDO apiRequestDO) {
+            methodParams = @AtopPermissionAuthParam(apiRequestDO = "apiRequestDO", deviceIds = "deviceId"))
+    public String sayHello(String deviceId, String params1, ApiRequestDO apiRequestDO) {
         return annotationService.sayHello();
     }
 

@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.util.SocketUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
@@ -52,14 +53,18 @@ public class AtopPermissionAuthAspect {
         // 获取切面方法
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method targetMethod = methodSignature.getMethod();
-        // 获取注解方法的元数据
-        AtopPermissionAuthMeta authMeta = getPermissionAuthMeta(targetMethod);
-        Object[] args = joinPoint.getArgs();
-        Map<String, Object> argsMap = getArgsMap(methodSignature, args);
-        log.info("AtopPermissionAuthAspect doAround argsMap = {}", JSONObject.toJSONString(argsMap));
-        VerifyMethodEnum methodsEnum = authMeta.getVerifyMethod();
-        String methodName = methodsEnum.getMethodName();
-        verifyBizService.matchVerifyMethodByMethodName(methodName, authMeta.getVerifyMethodParams(), argsMap);
+        Class<?> declaringClass = targetMethod.getDeclaringClass();
+        String simpleName = declaringClass.getSimpleName();
+        String className = declaringClass.getName();
+        System.out.println(className + "." + targetMethod.getName());
+        // // 获取注解方法的元数据
+        // AtopPermissionAuthMeta authMeta = getPermissionAuthMeta(targetMethod);
+        // Object[] args = joinPoint.getArgs();
+        // Map<String, Object> argsMap = getArgsMap(methodSignature, args);
+        // log.info("AtopPermissionAuthAspect doAround argsMap = {}", JSONObject.toJSONString(argsMap));
+        // VerifyMethodEnum methodsEnum = authMeta.getVerifyMethod();
+        // String methodName = methodsEnum.getMethodName();
+        // verifyBizService.matchVerifyMethodByMethodName(methodName, authMeta.getVerifyMethodParams(), argsMap);
         return joinPoint.proceed();
     }
 
