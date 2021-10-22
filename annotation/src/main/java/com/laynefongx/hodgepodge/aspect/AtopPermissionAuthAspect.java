@@ -23,8 +23,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@Aspect
-@Component
+// @Aspect
+// @Component
 public class AtopPermissionAuthAspect {
 
     @Resource
@@ -35,11 +35,13 @@ public class AtopPermissionAuthAspect {
      */
     private static final Map<String, List<AtopPermissionAuthMeta>> permissionMetaMap = new ConcurrentHashMap<>();
 
+    private static final Set<String> unValidMethodSet = new HashSet<>();
+
     /**
      * 切面，定义拦截指定注解
      */
     @Pointcut(value = "execution(* com.laynefongx.hodgepodge..*.*(..))")
-    // @Pointcut(value = "@annotation(com.tuya.europa.auth.annotation.AtopPermissionAuth)")
+    // @Pointcut(value = "@annotation(com.laynefongx.hodgepodge.annotation.AtopPermissionAuth)")
     private void pointcut() {
     }
 
@@ -82,11 +84,18 @@ public class AtopPermissionAuthAspect {
         if (permissionMetaMap.containsKey(method.toGenericString())) {
             return permissionMetaMap.get(method.toGenericString());
         }
-        List<AtopPermissionAuthMeta> authMetaList = new ArrayList<>();
+
+        if (unValidMethodSet.contains(method.toGenericString())){
+            return Collections.EMPTY_LIST;
+        }
+
         List<AtopPermissionAuth> permissionAuthList = ClassUtils.getAnnotationBySource(method, AtopPermissionAuth.class);
         if (CollectionUtils.isEmpty(permissionAuthList)) {
-            return authMetaList;
+            unValidMethodSet.add(method.toGenericString());
+            return Collections.EMPTY_LIST;
         }
+
+        List<AtopPermissionAuthMeta> authMetaList = new ArrayList<>();
         for (AtopPermissionAuth permissionAuth : permissionAuthList) {
             if (Objects.isNull(permissionAuth)) {
                 continue;
