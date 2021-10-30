@@ -9,6 +9,6 @@ public interface IController {
 
     @AtopPermissionAuth(method = VerifyMethodEnum.VERIFY_DEVICE_BELONG_HOME, methodParams = @AtopPermissionAuthParams(deviceIds = "deviceId"))
     @AtopPermissionAuth(method = VerifyMethodEnum.VERIFY_HOME_MEMBER, methodParams = @AtopPermissionAuthParams(deviceIds = "deviceId"))
-    public String sayHello(String deviceId, String params1, ApiRequestDO apiRequestDO);
+    public String sayHello(String deviceId, String params1);
 
 }

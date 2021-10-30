@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2021/10/21
  */
 
-@Configuration
+// @Configuration
 public class AopConfiguration {
 
   @Bean

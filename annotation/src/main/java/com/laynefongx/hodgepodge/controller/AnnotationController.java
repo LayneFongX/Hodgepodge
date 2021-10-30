@@ -17,7 +17,7 @@ public class AnnotationController implements IController {
 
     @Override
     @GetMapping("/sayHello")
-    public String sayHello(String deviceId, String params1, ApiRequestDO apiRequestDO) {
+    public String sayHello(String deviceId, String params1) {
         return annotationService.sayHello();
     }
 }

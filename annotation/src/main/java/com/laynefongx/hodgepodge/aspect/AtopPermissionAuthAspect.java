@@ -23,8 +23,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-// @Aspect
-// @Component
+@Aspect
+@Component
 public class AtopPermissionAuthAspect {
 
     @Resource
