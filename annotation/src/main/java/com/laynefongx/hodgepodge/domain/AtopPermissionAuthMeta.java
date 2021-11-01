@@ -1,6 +1,9 @@
 package com.laynefongx.hodgepodge.domain;
 
+
+
 import com.laynefongx.hodgepodge.annotation.AtopPermissionAuthParams;
+import com.laynefongx.hodgepodge.enums.VerifyBusinessEnum;
 import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +25,9 @@ public class AtopPermissionAuthMeta {
      * @return 返回授权参数列表
      */
     private AtopPermissionAuthParams verifyMethodParams;
+
+    /**
+     * 业务信息 分业务校验
+     */
+    private VerifyBusinessEnum verifyBusinessEnum;
 }

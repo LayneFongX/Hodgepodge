@@ -1,12 +1,10 @@
 package com.laynefongx.hodgepodge.interceptor;
 
-
-import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.annotation.AtopPermissionAuth;
+import com.laynefongx.hodgepodge.config.AtopPermissionApolloConfig;
 import com.laynefongx.hodgepodge.domain.AtopPermissionAuthMeta;
-import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
+import com.laynefongx.hodgepodge.service.VerifyBizService;
 import com.laynefongx.hodgepodge.utils.ClassUtils;
-import com.laynefongx.hodgepodge.verify.VerifyBizService;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -16,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,6 +27,8 @@ public class AopMethodInterceptor implements MethodInterceptor {
     @Resource
     private VerifyBizService verifyBizService;
 
+    @Resource
+    private AtopPermissionApolloConfig apolloConfig;
 
     /**
      * key为方法名称 value为该方法元数据
@@ -39,23 +38,24 @@ public class AopMethodInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-        Method method = methodInvocation.getMethod();
-        Class<?> declaringClass = method.getDeclaringClass();
-        String methodFullPathName = declaringClass.getName() + "." + method.getName();
-        // 获取注解方法的元数据
-        List<AtopPermissionAuthMeta> authMetaList = getPermissionAuthMeta(method);
-        for (AtopPermissionAuthMeta authMeta : authMetaList) {
-            Parameter[] parameters = method.getParameters();
-            for (Parameter parameter : parameters){
-                System.out.println(parameter.getName());
-            }
-            // Map<String, Object> argsMap = getArgsMap(methodSignature, parameters);
-            // log.info("AtopPermissionAuthAspect doAround argsMap = {}", JSONObject.toJSONString(argsMap));
-            // VerifyMethodEnum methodsEnum = authMeta.getVerifyMethod();
-            // String methodName = methodsEnum.getMethodName();
-            // verifyBizService.matchVerifyMethodByMethodName(methodName, authMeta.getVerifyMethodParams(), argsMap);
-        }
-        log.info("start interceptor {}", methodInvocation.getMethod().getName());
+        // Method method = methodInvocation.getMethod();
+        // method.g
+        // Class<?> declaringClass = method.getDeclaringClass();
+        // String methodFullPathName = declaringClass.getName() + "." + method.getName();
+        // List<String> whiteMethods = apolloConfig.getWhiteMethods();
+        // if (!whiteMethods.contains(methodFullPathName)) {
+        //     // 获取注解方法的元数据
+        //     List<AtopPermissionAuthMeta> authMetaList = getPermissionAuthMeta(method);
+        //     for (AtopPermissionAuthMeta authMeta : authMetaList) {
+        //         Object[] args = joinPoint.getArgs();
+        //         Map<String, Object> argsMap = getArgsMap(methodSignature, args);
+        //         log.info("AtopPermissionAuthAspect doAround argsMap = {}", JSONObject.toJSONString(argsMap));
+        //         VerifyMethodEnum methodsEnum = authMeta.getVerifyMethod();
+        //         String methodName = methodsEnum.getMethodName();
+        //         verifyBizService.matchVerifyMethodByMethodName(methodName, authMeta.getVerifyMethodParams(), argsMap);
+        //     }
+        // }
+        // log.info("start interceptor {}", methodInvocation.getMethod().getName());
         return methodInvocation.proceed();
     }
 

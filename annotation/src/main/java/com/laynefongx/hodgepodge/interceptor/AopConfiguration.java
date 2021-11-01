@@ -2,7 +2,6 @@ package com.laynefongx.hodgepodge.interceptor;
 
 import org.springframework.aop.Advisor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author falcon

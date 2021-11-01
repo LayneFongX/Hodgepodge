@@ -30,11 +30,21 @@ public enum VerifyMethodEnum {
     VERIFY_DEVICE_BELONG_GATEWAY("verifyDeviceBelongGateway", "校验设备是否属于网关"),
 
     VERIFY_DEVICE_BELONG_HOME("verifyDeviceBelongHome", "校验设备是否属于家庭"),
+
+    VERIFY_DEVICE_SHARED_USER("verifyDeviceShared2User","校验设备是否被分享给用户"),
+
+    VERIFY_PANEL_USER("verifyPanelUser","校验面板用户(uid与设备关系-面板用户id与设备id关系)")
     ;
 
     private String methodName;
 
     private String desc;
 
+    public String getMethodName() {
+        return methodName;
+    }
 
+    public String getDesc() {
+        return desc;
+    }
 }

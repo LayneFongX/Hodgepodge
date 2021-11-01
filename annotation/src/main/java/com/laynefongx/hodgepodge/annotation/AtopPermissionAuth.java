@@ -1,5 +1,6 @@
 package com.laynefongx.hodgepodge.annotation;
 
+import com.laynefongx.hodgepodge.enums.VerifyBusinessEnum;
 import com.laynefongx.hodgepodge.enums.VerifyMethodEnum;
 
 import java.lang.annotation.*;
@@ -24,5 +25,12 @@ public @interface AtopPermissionAuth {
      * @return 返回授权参数列表
      */
     AtopPermissionAuthParams methodParams();
+
+    /**
+     * 要校验的业务
+     *
+     * @return
+     */
+    VerifyBusinessEnum business() default VerifyBusinessEnum.NONE;
 
 }

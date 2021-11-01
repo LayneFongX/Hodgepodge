@@ -1,6 +1,7 @@
 package com.laynefongx.hodgepodge.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.lang.annotation.Annotation;
@@ -21,7 +22,7 @@ public class ClassUtils {
 
         //获取方法上注解配置
         T[] annotations = method.getDeclaredAnnotationsByType(type);
-        if (ObjectUtils.isNotEmpty(annotations)) {
+        if (!ArrayUtils.isEmpty(annotations)) {
             return List.of(annotations);
         }
 

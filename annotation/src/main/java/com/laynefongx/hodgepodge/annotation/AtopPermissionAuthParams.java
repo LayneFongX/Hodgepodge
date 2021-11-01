@@ -11,6 +11,13 @@ import java.lang.annotation.*;
 public @interface AtopPermissionAuthParams {
 
     /**
+     * 只校验请求上下文中的参数
+     *
+     * @return
+     */
+    String none() default StringUtils.EMPTY;
+
+    /**
      * 家庭ID
      */
     String homeId() default StringUtils.EMPTY;
@@ -44,5 +51,10 @@ public @interface AtopPermissionAuthParams {
      * 网关ID
      */
     String gatewayId() default StringUtils.EMPTY;
+
+    /**
+     * 面板用户ID
+     */
+    String userId() default StringUtils.EMPTY;
 
 }
