@@ -1,26 +1,15 @@
 package com.laynefongx.hodgepodge.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.domain.GroupUserBizVO;
 import com.laynefongx.hodgepodge.service.IAtopPermissionAuthBaseService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
-import javax.annotation.Resource;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class AtopPermissionAuthBaseService implements IAtopPermissionAuthBaseService {
-
-    @Resource
-    private OwnerHandleService ownerHandleService;
-
 
     @Override
     public GroupUserBizVO getUserRoleBelongHome(String uid, Long ownerId) {
