@@ -40,8 +40,8 @@ public class AtopPermissionAuthAspect {
     /**
      * 切面，定义拦截指定注解
      */
-    // @Pointcut(value = "execution(* com.laynefongx.hodgepodge..*.*(..))")
-    @Pointcut(value = "@annotation(com.laynefongx.hodgepodge.annotation.AtopPermissionAuth)")
+    @Pointcut(value = "execution(* com.laynefongx.hodgepodge..*.*(..))")
+    // @Pointcut(value = "@annotation(com.laynefongx.hodgepodge.annotation.AtopPermissionAuth)")
     private void pointcut() {
     }
 
