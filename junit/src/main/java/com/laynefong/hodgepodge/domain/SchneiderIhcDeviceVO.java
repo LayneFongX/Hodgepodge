@@ -7,15 +7,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@Builder
 public class SchneiderIhcDeviceVO extends DeviceVO implements Serializable {
 
     private static final long serialVersionUID = -2196084911062515041L;
-
-
-    public SchneiderIhcDeviceVO() {
-
-    }
 
     /**
      * 设备ID
