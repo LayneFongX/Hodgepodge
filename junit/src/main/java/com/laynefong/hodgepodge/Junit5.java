@@ -31,7 +31,7 @@ public class Junit5 {
             // 获取新的设备名称
             String newDeviceName = getNewDeviceName(ihcDevicePrefixName, devicesNameList);
             System.out.println(
-                    "设备名称:" + ihcDeviceName + ",设备的前缀名称为:" + ihcDevicePrefixName + ",全部设备名称: " + allDeviceNameList + ",满足条件的其他设备名称为:" +
+                    "设备名称:" + ihcDeviceName + ",全部设备名称: " + allDeviceNameList + ",满足条件的其他设备名称为:" +
                             devicesNameList + ",新设备名称为:" + newDeviceName);
 
             DeviceVO vo = new DeviceVO();
