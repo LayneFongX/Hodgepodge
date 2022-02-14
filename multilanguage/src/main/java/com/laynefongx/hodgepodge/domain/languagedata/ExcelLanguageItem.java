@@ -13,13 +13,22 @@ public class ExcelLanguageItem {
 
     /**
      * 语种
-     * */
+     */
     private String lang;
 
     /**
      * 语种内容
-     * */
+     */
     private String value;
 
     private IndexedColors cellColor = IndexedColors.WHITE;
+
+    public ExcelLanguageItem() {
+
+    }
+
+    public ExcelLanguageItem(String lang, String value) {
+        this.lang = lang;
+        this.value = value;
+    }
 }
