@@ -92,14 +92,14 @@ public class MultiLanguageCompareHelperService {
             String excelEnglishAnswerValue = excelLanguageItemValueMap.get(getAnswerByLanguage(MultiLangType.ENGLISH.getEnName()));
 
             String iotEnglishTitleValue = iotLanguageItemValueMap.get(getTitleByLanguage(MultiLangType.ENGLISH.getEnName()));
-            String iotEnglishAnswerValue = iotLanguageItemValueMap.get(getTitleByLanguage(MultiLangType.ENGLISH.getEnName()));
+            String iotEnglishAnswerValue = iotLanguageItemValueMap.get(getAnswerByLanguage(MultiLangType.ENGLISH.getEnName()));
 
             if (StringUtils.isBlank(excelEnglishTitleValue) || StringUtils.isBlank(excelEnglishAnswerValue)
                     || StringUtils.isBlank(iotEnglishTitleValue) || StringUtils.isBlank(iotEnglishAnswerValue)) {
                 return;
             }
 
-            if (!excelEnglishTitleValue.equals(excelEnglishAnswerValue)) {
+            if (!excelEnglishTitleValue.equals(iotEnglishTitleValue)) {
                 // 需要在数据中标记为绿色
                 IotLanguageItem iotLanguageItem =
                         iotKey2LanguageItemsMap.get(key).get(getTitleByLanguage(MultiLangType.ENGLISH.getEnName()));
@@ -145,7 +145,7 @@ public class MultiLanguageCompareHelperService {
                               Map<String, Map<String, IotLanguageItem>> iotKey2LanguageItemsMap) {
         if (FileType.isFaq(fileType)) {
             String iotEnglishTitleValue = iotLanguageItemValueMap.get(getTitleByLanguage(MultiLangType.ENGLISH.getEnName()));
-            String iotEnglishAnswerValue = iotLanguageItemValueMap.get(getTitleByLanguage(MultiLangType.ENGLISH.getEnName()));
+            String iotEnglishAnswerValue = iotLanguageItemValueMap.get(getAnswerByLanguage(MultiLangType.ENGLISH.getEnName()));
             if (StringUtils.isBlank(iotEnglishTitleValue) || StringUtils.isBlank(iotEnglishAnswerValue)) {
                 return;
             }
@@ -157,17 +157,17 @@ public class MultiLanguageCompareHelperService {
                 String answerLanguage = getAnswerByLanguage(selectLanguage);
 
                 // 选中国家语言对应部分为空的cell
-                if (StringUtils.isNotBlank(iotKeyLanguageItemsMap.get(titleLanguage)) &&
-                        StringUtils.isNotBlank(iotKeyLanguageItemsMap.get(answerLanguage))) {
-                    continue;
+                if (StringUtils.isBlank(iotKeyLanguageItemsMap.get(titleLanguage))) {
+                    IotLanguageItem iotLanguageTitleItem = iotKey2LanguageItemsMap.get(key).get(titleLanguage);
+                    iotLanguageTitleItem.setCellColor(IndexedColors.GREEN);
+                    iotKey2LanguageItemsMap.get(key).put(titleLanguage, iotLanguageTitleItem);
                 }
-                IotLanguageItem iotLanguageTitleItem = iotKey2LanguageItemsMap.get(key).get(titleLanguage);
-                iotLanguageTitleItem.setCellColor(IndexedColors.GREEN);
-                iotKey2LanguageItemsMap.get(key).put(titleLanguage, iotLanguageTitleItem);
 
-                IotLanguageItem iotLanguageAnswerItem = iotKey2LanguageItemsMap.get(key).get(answerLanguage);
-                iotLanguageAnswerItem.setCellColor(IndexedColors.GREEN);
-                iotKey2LanguageItemsMap.get(key).put(answerLanguage, iotLanguageAnswerItem);
+                if (StringUtils.isBlank(iotKeyLanguageItemsMap.get(answerLanguage))) {
+                    IotLanguageItem iotLanguageAnswerItem = iotKey2LanguageItemsMap.get(key).get(answerLanguage);
+                    iotLanguageAnswerItem.setCellColor(IndexedColors.GREEN);
+                    iotKey2LanguageItemsMap.get(key).put(answerLanguage, iotLanguageAnswerItem);
+                }
             }
 
         } else {

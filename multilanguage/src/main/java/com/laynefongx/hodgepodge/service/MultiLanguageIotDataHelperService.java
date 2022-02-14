@@ -97,6 +97,9 @@ public class MultiLanguageIotDataHelperService {
         // 对比规则3: 循环找出IOT 平台上新文件(B)，英文不为空，中文为空，复制到新生成D文件中整行标记为红色，并记录到log中。Log形式为（哪个app, 哪个类型文件，什么key, 中文为空）
         // 对比规则4: 循环找出IOT 平台上新文件(B)，中文不为空，英文为空，复制到新生成D文件中整行标记为红色，并记录到log中。Log形式为（哪个app, 哪个类型文件，什么key, 英文为空）
         if (sheetName.equals("Product Name")) {
+
+        } else if (sheetName.equals("Data Point")) {
+            // 产品功能
             // 产品名称
             SheetLineData sheetLineData1 = new SheetLineData();
             sheetLineData1.setKey("dp_1");
@@ -133,9 +136,6 @@ public class MultiLanguageIotDataHelperService {
                     Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4, sheetLineData5);
             return JSONObject.parseObject(JSONObject.toJSONString(sheetLineData), new TypeReference<>() {
             });
-
-        } else if (sheetName.equals("Data Point")) {
-            // 产品功能
 
         } else if (sheetName.equals("Device Panel")) {
             // 设备面板

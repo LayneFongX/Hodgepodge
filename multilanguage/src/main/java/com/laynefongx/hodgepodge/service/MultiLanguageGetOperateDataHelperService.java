@@ -140,7 +140,7 @@ public class MultiLanguageGetOperateDataHelperService {
     public OperateData getFAQOperateData() {
         OperateData operateData = new OperateData();
         operateData.setPath("ALL/FAQ/WiserApp_1");
-        operateData.setFileType(FileType.WISER_APP);
+        operateData.setFileType(FileType.WISER_APP_FAQ);
 
         ExcelSheetPage excelSheetPage = new ExcelSheetPage();
         excelSheetPage.setSheetName("Wiser app Faq");
