@@ -1,6 +1,7 @@
 package com.laynefongx.hodgepodge.exception;
 
-import com.tuya.shendeng.enums.ErrorType;
+
+import com.laynefongx.hodgepodge.enums.ErrorType;
 
 /**
  * @author falcon

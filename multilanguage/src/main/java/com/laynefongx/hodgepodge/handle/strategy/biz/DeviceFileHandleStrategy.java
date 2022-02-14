@@ -1,16 +1,17 @@
-package com.laynefongx.hodgepodge.handle.strategy.file.biz;
+package com.laynefongx.hodgepodge.handle.strategy.biz;
 
-import com.tuya.shendeng.domain.languagedata.ExcelSheetPage;
-import com.tuya.shendeng.domain.languagedata.IotLanguageData;
-import com.tuya.shendeng.domain.languagedata.SheetLineData;
-import com.tuya.shendeng.domain.operate.FileResult;
-import com.tuya.shendeng.domain.operate.OperateData;
-import com.tuya.shendeng.domain.request.OperateConfigDto;
-import com.tuya.shendeng.enums.FileType;
-import com.tuya.shendeng.enums.OperateType;
-import com.tuya.shendeng.handle.strategy.file.IFileHandleStrategy;
-import com.tuya.shendeng.service.helper.MultiLanguageIotDataHelperService;
-import com.tuya.shendeng.service.helper.MultiLanguageOperateHelperService;
+
+import com.laynefongx.hodgepodge.domain.languagedata.ExcelSheetPage;
+import com.laynefongx.hodgepodge.domain.languagedata.IotLanguageData;
+import com.laynefongx.hodgepodge.domain.languagedata.SheetLineData;
+import com.laynefongx.hodgepodge.domain.operate.FileResult;
+import com.laynefongx.hodgepodge.domain.operate.OperateData;
+import com.laynefongx.hodgepodge.domain.request.OperateConfigDto;
+import com.laynefongx.hodgepodge.enums.FileType;
+import com.laynefongx.hodgepodge.enums.OperateType;
+import com.laynefongx.hodgepodge.handle.strategy.IFileHandleStrategy;
+import com.laynefongx.hodgepodge.service.MultiLanguageIotDataHelperService;
+import com.laynefongx.hodgepodge.service.MultiLanguageOperateHelperService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

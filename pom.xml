@@ -23,6 +23,7 @@
         <guava.version>28.2-jre</guava.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <aspectj.version>1.9.4</aspectj.version>
+        <poi.version>4.1.0</poi.version>
     </properties>
 
 
@@ -135,6 +136,12 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjtools</artifactId>
                 <version>${aspectj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
             </dependency>
 
         </dependencies>

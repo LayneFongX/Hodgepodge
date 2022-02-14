@@ -1,16 +1,17 @@
-package com.laynefongx.hodgepodge.handle.strategy.file.biz;
+package com.laynefongx.hodgepodge.handle.strategy.biz;
 
-import com.tuya.shendeng.domain.languagedata.ExcelSheetPage;
-import com.tuya.shendeng.domain.languagedata.IotLanguageData;
-import com.tuya.shendeng.domain.languagedata.SheetLineData;
-import com.tuya.shendeng.domain.operate.FileResult;
-import com.tuya.shendeng.domain.operate.OperateData;
-import com.tuya.shendeng.domain.request.OperateConfigDto;
-import com.tuya.shendeng.enums.FileType;
-import com.tuya.shendeng.enums.OperateType;
-import com.tuya.shendeng.handle.strategy.file.IFileHandleStrategy;
-import com.tuya.shendeng.service.helper.MultiLanguageIotDataHelperService;
-import com.tuya.shendeng.service.helper.MultiLanguageOperateHelperService;
+
+import com.laynefongx.hodgepodge.domain.languagedata.ExcelSheetPage;
+import com.laynefongx.hodgepodge.domain.languagedata.IotLanguageData;
+import com.laynefongx.hodgepodge.domain.languagedata.SheetLineData;
+import com.laynefongx.hodgepodge.domain.operate.FileResult;
+import com.laynefongx.hodgepodge.domain.operate.OperateData;
+import com.laynefongx.hodgepodge.domain.request.OperateConfigDto;
+import com.laynefongx.hodgepodge.enums.FileType;
+import com.laynefongx.hodgepodge.enums.OperateType;
+import com.laynefongx.hodgepodge.handle.strategy.IFileHandleStrategy;
+import com.laynefongx.hodgepodge.service.MultiLanguageIotDataHelperService;
+import com.laynefongx.hodgepodge.service.MultiLanguageOperateHelperService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class AppFileHandleStrategy implements IFileHandleStrategy {
+public class FAQFileHandleStrategy implements IFileHandleStrategy {
 
     @Resource
     private MultiLanguageIotDataHelperService iotDataHelperService;
@@ -33,7 +34,7 @@ public class AppFileHandleStrategy implements IFileHandleStrategy {
 
     @Override
     public int type() {
-        return FileType.WISER_APP.getType();
+        return FileType.WISER_APP_FAQ.getType();
     }
 
     @Override
@@ -44,20 +45,22 @@ public class AppFileHandleStrategy implements IFileHandleStrategy {
         String fileName = filePath.split("/")[2];
         // 获取sheet页数据
         List<ExcelSheetPage> sheetPages = operateData.getSheetPages();
-        // 对于App多语言来说目前没有多sheet页的情况
+        // 对于FAQ多语言来说目前没有多sheet页的情况
         ExcelSheetPage sheetPage = sheetPages.get(0);
         // 获取此次操作的语言
         List<String> languages = operateConfigDto.getLanguages();
         // 获取上传的Excel多语言数据
         List<SheetLineData> excelLanguageData = sheetPage.getSheetLineDataList();
+        // 获取本次操作的FAQ类型
+        String typeName = fileName.split("_")[0]; // WiserApp_FAQ/ElkoApp_FAQ/IPCarema_FAQ
         // 获取IoT平台多语言数据
         List<IotLanguageData> iotLanguageDataList =
-                iotDataHelperService.getAppIotLanguageDataByFileName(operateData.getFileType(), fileName);
+                iotDataHelperService.getFAQIotLanguageDataByType(operateData.getFileType(), operateConfigDto.getEnv(), typeName);
+
         if (operate == OperateType.COMPARE.getType()) {
             return operateHelperService.getFileResult(filePath,
                     operateHelperService.compareLanguageDatas(operateData.getFileType().getType(), sheetPage, languages, excelLanguageData,
                             iotLanguageDataList));
-
         }
 
         if (operate == OperateType.MERGE.getType()) {
@@ -67,4 +70,5 @@ public class AppFileHandleStrategy implements IFileHandleStrategy {
 
         return new FileResult();
     }
+
 }

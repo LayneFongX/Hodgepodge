@@ -1,5 +1,6 @@
 package com.laynefongx.hodgepodge.domain.languagedata;
 
+
 import lombok.Data;
 import org.apache.poi.ss.usermodel.IndexedColors;
 

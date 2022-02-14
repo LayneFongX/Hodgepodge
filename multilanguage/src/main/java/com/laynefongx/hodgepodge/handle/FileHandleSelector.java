@@ -1,9 +1,10 @@
 package com.laynefongx.hodgepodge.handle;
 
-import com.tuya.shendeng.domain.operate.FileResult;
-import com.tuya.shendeng.domain.operate.OperateData;
-import com.tuya.shendeng.domain.request.OperateConfigDto;
-import com.tuya.shendeng.handle.strategy.file.IFileHandleStrategy;
+
+import com.laynefongx.hodgepodge.domain.operate.FileResult;
+import com.laynefongx.hodgepodge.domain.operate.OperateData;
+import com.laynefongx.hodgepodge.domain.request.OperateConfigDto;
+import com.laynefongx.hodgepodge.handle.strategy.IFileHandleStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,22 +27,4 @@ public class FileHandleSelector {
         return Optional.ofNullable(strategy).map(s -> s.handle(operateType, operateData, operateConfigDto))
                 .orElseGet(FileResult::new);
     }
-
-    // public FileResult compare(int fileType, OperateData operateData, OperateConfigDto operateConfigDto) {
-    //     IFileHandleStrategy strategy = strategyMap.get(fileType);
-    //     return Optional.ofNullable(strategy).map(s -> s.compare(operateData, operateConfigDto))
-    //             .orElseGet(FileResult::new);
-    // }
-    //
-    // public FileResult merge(int fileType, OperateData operateData, OperateConfigDto operateConfigDto) {
-    //     IFileHandleStrategy strategy = strategyMap.get(fileType);
-    //     return Optional.ofNullable(strategy).map(s -> s.merge(operateData, operateConfigDto))
-    //             .orElseGet(FileResult::new);
-    // }
-    //
-    // public FileResult update(int fileType, OperateData operateData, OperateConfigDto operateConfigDto) {
-    //     IFileHandleStrategy strategy = strategyMap.get(fileType);
-    //     return Optional.ofNullable(strategy).map(s -> s.update(operateData, operateConfigDto))
-    //             .orElseGet(FileResult::new);
-    // }
 }
