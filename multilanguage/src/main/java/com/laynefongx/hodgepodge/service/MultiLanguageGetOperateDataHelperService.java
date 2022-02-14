@@ -46,7 +46,13 @@ public class MultiLanguageGetOperateDataHelperService {
         sheetLineData4.setLanguageItems(
                 Arrays.asList(new ExcelLanguageItem("CHINESE", "app_4中文"), new ExcelLanguageItem("ENGLISH", "app_4英文"),
                         new ExcelLanguageItem("JAPANESE", "app_4日语"), new ExcelLanguageItem("FRENCH", "app_4法语")));
-        excelSheetPage.setSheetLineDataList(Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4));
+
+        SheetLineData sheetLineData5 = new SheetLineData();
+        sheetLineData5.setKey("app_5");
+        sheetLineData5.setLanguageItems(
+                Arrays.asList(new ExcelLanguageItem("CHINESE", "app_5中文"), new ExcelLanguageItem("ENGLISH", "app_5英文"),
+                        new ExcelLanguageItem("JAPANESE", "app_5日语"), new ExcelLanguageItem("FRENCH", "app_5法语")));
+        excelSheetPage.setSheetLineDataList(Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4, sheetLineData5));
 
         operateData.setSheetPages(Arrays.asList(excelSheetPage));
         return operateData;
@@ -83,35 +89,49 @@ public class MultiLanguageGetOperateDataHelperService {
         sheetLineData4.setLanguageItems(
                 Arrays.asList(new ExcelLanguageItem("CHINESE", "dp_4中文"), new ExcelLanguageItem("ENGLISH", "dp_4英文"),
                         new ExcelLanguageItem("JAPANESE", "dp_4日语"), new ExcelLanguageItem("FRENCH", "dp_4法语")));
-        excelSheetPage1.setSheetLineDataList(Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4));
 
-        ExcelSheetPage excelSheetPage2 = new ExcelSheetPage();
-        excelSheetPage2.setSheetName("Data Panel");
 
         SheetLineData sheetLineData5 = new SheetLineData();
-        sheetLineData1.setKey("data panel_1");
-        sheetLineData1.setLanguageItems(
+        sheetLineData5.setKey("dp_5");
+        sheetLineData5.setLanguageItems(
+                Arrays.asList(new ExcelLanguageItem("CHINESE", "dp_5中文"), new ExcelLanguageItem("ENGLISH", "dp_5英文"),
+                        new ExcelLanguageItem("JAPANESE", "dp_5日语"), new ExcelLanguageItem("FRENCH", "dp_5法语")));
+        excelSheetPage1.setSheetLineDataList(Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4, sheetLineData5));
+
+        ExcelSheetPage excelSheetPage2 = new ExcelSheetPage();
+        excelSheetPage2.setSheetName("Device Panel");
+
+        SheetLineData sheetLineData6 = new SheetLineData();
+        sheetLineData6.setKey("data panel_1");
+        sheetLineData6.setLanguageItems(
                 Arrays.asList(new ExcelLanguageItem("CHINESE", "data panel_1中文"), new ExcelLanguageItem("ENGLISH", "data panel_1英文"),
                         new ExcelLanguageItem("JAPANESE", "data panel_1日语"), new ExcelLanguageItem("FRENCH", "data panel_1法语")));
 
-        SheetLineData sheetLineData6 = new SheetLineData();
-        sheetLineData2.setKey("data panel_2");
-        sheetLineData2.setLanguageItems(
+        SheetLineData sheetLineData7 = new SheetLineData();
+        sheetLineData7.setKey("data panel_2");
+        sheetLineData7.setLanguageItems(
                 Arrays.asList(new ExcelLanguageItem("CHINESE", "data panel_2中文"), new ExcelLanguageItem("ENGLISH", "data panel_2英文"),
                         new ExcelLanguageItem("JAPANESE", "data panel_2日语"), new ExcelLanguageItem("FRENCH", "data panel_2法语")));
 
-        SheetLineData sheetLineData7 = new SheetLineData();
-        sheetLineData3.setKey("data panel_3");
-        sheetLineData3.setLanguageItems(
+        SheetLineData sheetLineData8 = new SheetLineData();
+        sheetLineData8.setKey("data panel_3");
+        sheetLineData8.setLanguageItems(
                 Arrays.asList(new ExcelLanguageItem("CHINESE", "data panel_3中文"), new ExcelLanguageItem("ENGLISH", "data panel_3英文"),
                         new ExcelLanguageItem("JAPANESE", "data panel_3日语"), new ExcelLanguageItem("FRENCH", "data panel_3法语")));
 
-        SheetLineData sheetLineData8 = new SheetLineData();
-        sheetLineData4.setKey("data panel_4");
-        sheetLineData4.setLanguageItems(
+        SheetLineData sheetLineData9 = new SheetLineData();
+        sheetLineData9.setKey("data panel_4");
+        sheetLineData9.setLanguageItems(
                 Arrays.asList(new ExcelLanguageItem("CHINESE", "data panel_4中文"), new ExcelLanguageItem("ENGLISH", "data panel_4英文"),
                         new ExcelLanguageItem("JAPANESE", "data panel_4日语"), new ExcelLanguageItem("FRENCH", "data panel_4法语")));
-        excelSheetPage2.setSheetLineDataList(Arrays.asList(sheetLineData5, sheetLineData6, sheetLineData7, sheetLineData8));
+
+        SheetLineData sheetLineData10 = new SheetLineData();
+        sheetLineData10.setKey("data panel_5");
+        sheetLineData10.setLanguageItems(
+                Arrays.asList(new ExcelLanguageItem("CHINESE", "data panel_5中文"), new ExcelLanguageItem("ENGLISH", "data panel_5英文"),
+                        new ExcelLanguageItem("JAPANESE", "data panel_5日语"), new ExcelLanguageItem("FRENCH", "data panel_5法语")));
+        excelSheetPage2.setSheetLineDataList(
+                Arrays.asList(sheetLineData6, sheetLineData7, sheetLineData8, sheetLineData9, sheetLineData10));
 
         operateData.setSheetPages(Arrays.asList(excelSheetPage1, excelSheetPage2));
         return operateData;
@@ -173,7 +193,19 @@ public class MultiLanguageGetOperateDataHelperService {
                         new ExcelLanguageItem("Knowledge title(FRENCH)", "faq_4_title法语"),
                         new ExcelLanguageItem("Text Answer(FRENCH)", "faq_4_answer法语")));
 
-        excelSheetPage.setSheetLineDataList(Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4));
+        SheetLineData sheetLineData5 = new SheetLineData();
+        sheetLineData5.setKey("faq_5");
+        sheetLineData5.setLanguageItems(
+                Arrays.asList(new ExcelLanguageItem("Knowledge title(CHINESE)", "faq_5_title中文"),
+                        new ExcelLanguageItem("Text Answer(CHINESE)", "faq_5_answer中文"),
+                        new ExcelLanguageItem("Knowledge title(ENGLISH)", "faq_5_title英文"),
+                        new ExcelLanguageItem("Text Answer(ENGLISH)", "faq_5_answer英文"),
+                        new ExcelLanguageItem("Knowledge title(JAPANESE)", "faq_5_title日语"),
+                        new ExcelLanguageItem("Text Answer(JAPANESE)", "faq_5_answer日语"),
+                        new ExcelLanguageItem("Knowledge title(FRENCH)", "faq_5_title法语"),
+                        new ExcelLanguageItem("Text Answer(FRENCH)", "faq_5_answer法语")));
+
+        excelSheetPage.setSheetLineDataList(Arrays.asList(sheetLineData1, sheetLineData2, sheetLineData3, sheetLineData4, sheetLineData5));
         operateData.setSheetPages(Arrays.asList(excelSheetPage));
         return operateData;
     }
