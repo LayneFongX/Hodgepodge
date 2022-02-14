@@ -43,7 +43,7 @@ public class MultiLanguageIotDataHelperService {
             SheetLineData sheetLineData1 = new SheetLineData();
             sheetLineData1.setKey("app_1");
             sheetLineData1.setLanguageItems(
-                    Arrays.asList(new ExcelLanguageItem("CHINESE", "app_1中文"), new ExcelLanguageItem("ENGLISH", "app_1_英文"),
+                    Arrays.asList(new ExcelLanguageItem("CHINESE", "app_1中文"), new ExcelLanguageItem("ENGLISH", "app_1英文"),
                             new ExcelLanguageItem("JAPANESE", "app_1日语"), new ExcelLanguageItem("FRENCH", "app_1法语")));
 
             SheetLineData sheetLineData2 = new SheetLineData();
