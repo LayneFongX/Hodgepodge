@@ -50,6 +50,11 @@
             <artifactId>annotation</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.laynefong.hodgepodge</groupId>
+            <artifactId>multilanguage</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
