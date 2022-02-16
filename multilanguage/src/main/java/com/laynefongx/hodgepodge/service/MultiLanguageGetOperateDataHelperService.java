@@ -60,7 +60,7 @@ public class MultiLanguageGetOperateDataHelperService {
 
     public OperateData getDeviceOperateData() {
         OperateData operateData = new OperateData();
-        operateData.setPath("ALL/Device Relate/export_i18n_r6ujohuyq1k4hf2h_1629863333425");
+        operateData.setPath("ALL/Device Relate/Device Name/export_i18n_r6ujohuyq1k4hf2h_1629863333425");
         operateData.setFileType(FileType.WISER_APP);
 
         ExcelSheetPage excelSheetPage1 = new ExcelSheetPage();
