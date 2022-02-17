@@ -13,9 +13,9 @@ public class OperateConfigDto {
     private String env;
 
     /**
-     * 语言
+     * 语种Id集合
      */
-    private List<String> languages;
+    private List<Integer> languageIds;
 
     /**
      * 文件类型

@@ -1,6 +1,5 @@
 package com.laynefongx.hodgepodge.exception;
 
-
 import com.laynefongx.hodgepodge.enums.ErrorType;
 
 /**
@@ -10,15 +9,21 @@ import com.laynefongx.hodgepodge.enums.ErrorType;
 public class FlowException extends RuntimeException {
 
     private String msg;
-    private Integer errorType;
+    private Integer errorCode;
+    private ErrorType type;
 
-    public FlowException(String msg, Integer errorType) {
+    public FlowException(String msg, Integer errorCode) {
         this.msg = msg;
-        this.errorType = errorType;
+        this.errorCode = errorCode;
     }
 
     public FlowException(ErrorType errorType) {
         this.msg = errorType.getMessage();
-        this.errorType = errorType.getError();
+        this.errorCode = errorType.getError();
+        this.type = errorType;
+    }
+
+    public ErrorType getType() {
+        return type;
     }
 }

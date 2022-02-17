@@ -24,7 +24,12 @@ public enum FileType {
 
     public static boolean isFaq(int fileType) {
         List<Integer> list = Arrays.stream(FileType.values()).filter(type -> type.getName()
-            .contains("FAQ")).map(FileType::getType).collect(Collectors.toList());
+                .contains("FAQ")).map(FileType::getType).collect(Collectors.toList());
+        return list.contains(fileType);
+    }
+
+    public static boolean isApp(int fileType) {
+        List<Integer> list = Arrays.asList(WISER_APP.getType(), ELKO_APP.getType());
         return list.contains(fileType);
     }
 
@@ -38,7 +43,16 @@ public enum FileType {
 
     public static FileType transform(String name) {
         return Arrays.stream(FileType.values())
-            .filter(type -> Objects.equals(type.getName(), name))
-            .findFirst().orElse(null);
+                .filter(type -> Objects.equals(type.getName(), name))
+                .findFirst().orElse(null);
+    }
+
+    public static String getNameByType(Integer type) {
+        for (FileType fileType : values()) {
+            if (fileType.getType() == type) {
+                return fileType.getName();
+            }
+        }
+        return null;
     }
 }

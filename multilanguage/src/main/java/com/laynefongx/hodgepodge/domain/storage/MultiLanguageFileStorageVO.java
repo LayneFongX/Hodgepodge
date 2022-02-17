@@ -34,11 +34,6 @@ public class MultiLanguageFileStorageVO implements Serializable {
     private String uploadSignUrl;
 
     /**
-     * 预签名的下载文件地址
-     */
-    private String downloadSignUrl;
-
-    /**
      * 预签名上传文件地址的有效时间，单位秒
      */
     private Integer expireTime;

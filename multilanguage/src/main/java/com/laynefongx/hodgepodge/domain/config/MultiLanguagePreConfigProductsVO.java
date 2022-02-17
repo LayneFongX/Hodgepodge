@@ -24,9 +24,4 @@ public class MultiLanguagePreConfigProductsVO implements Serializable {
      */
     private String pid;
 
-    /**
-     * 是否选中
-     */
-    private Boolean selected;
-
 }

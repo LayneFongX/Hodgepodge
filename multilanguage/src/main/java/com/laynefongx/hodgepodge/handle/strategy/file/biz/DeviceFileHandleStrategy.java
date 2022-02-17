@@ -1,15 +1,16 @@
-package com.laynefongx.hodgepodge.handle.strategy.biz;
+package com.laynefongx.hodgepodge.handle.strategy.file.biz;
 
-
+import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.domain.languagedata.ExcelSheetPage;
 import com.laynefongx.hodgepodge.domain.languagedata.IotLanguageData;
 import com.laynefongx.hodgepodge.domain.languagedata.SheetLineData;
 import com.laynefongx.hodgepodge.domain.operate.FileResult;
 import com.laynefongx.hodgepodge.domain.operate.OperateData;
+import com.laynefongx.hodgepodge.domain.operate.OperateDetail;
 import com.laynefongx.hodgepodge.domain.request.OperateConfigDto;
 import com.laynefongx.hodgepodge.enums.FileType;
 import com.laynefongx.hodgepodge.enums.OperateType;
-import com.laynefongx.hodgepodge.handle.strategy.IFileHandleStrategy;
+import com.laynefongx.hodgepodge.handle.strategy.file.IFileHandleStrategy;
 import com.laynefongx.hodgepodge.service.MultiLanguageIotDataHelperService;
 import com.laynefongx.hodgepodge.service.MultiLanguageOperateHelperService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author falcon
@@ -27,15 +30,16 @@ import java.util.List;
 @Component
 public class DeviceFileHandleStrategy implements IFileHandleStrategy {
 
-    @Resource
-    private MultiLanguageIotDataHelperService iotDataHelperService;
 
     @Resource
     private MultiLanguageOperateHelperService operateHelperService;
 
+    @Resource
+    private MultiLanguageIotDataHelperService iotDataHelperService;
+
     @Override
-    public int type() {
-        return FileType.DEVICE_RELATED.getType();
+    public List<Integer> type() {
+        return Collections.singletonList(FileType.DEVICE_RELATED.getType());
     }
 
     @Override
@@ -43,31 +47,45 @@ public class DeviceFileHandleStrategy implements IFileHandleStrategy {
         // 获取文件path
         String filePath = operateData.getPath();
         // 获取文件名称
-        String fileName = filePath.split("/")[2];
+        String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
         // 获取sheet页数据
         List<ExcelSheetPage> sheetPages = operateData.getSheetPages();
         // 获取产品pid
         String productId = getProductId(fileName, sheetPages.size());
         // 获取此次操作的语言
-        List<String> languages = operateConfigDto.getLanguages();
+        List<Integer> languageIds = operateConfigDto.getLanguageIds();
+
+        OperateDetail operateDetail =
+                operateHelperService.getOperateDetail(operateData.getOperateId(), operateData.getFileType().getType(), filePath, fileName);
 
         List<ExcelSheetPage> deviceExcelSheetPage = new ArrayList<>();
         for (ExcelSheetPage sheetPage : sheetPages) {
+            operateDetail.setSheetName(sheetPage.getSheetName());
             // 获取上传的Excel多语言数据
             List<SheetLineData> excelLanguageData = sheetPage.getSheetLineDataList();
+            Set<String> itemCodesSet = iotDataHelperService.getItemCodesSet(excelLanguageData);
             // 获取IoT平台多语言数据
             List<IotLanguageData> iotLanguageDataList =
-                    iotDataHelperService.getDeviceIotLanguageDataBySheetName(productId, sheetPage.getSheetName());
+                    iotDataHelperService.getDeviceIotLanguageDataBySheetName(operateDetail, productId, languageIds, itemCodesSet);
+
+            log.info("DeviceFileHandleStrategy handle operate = {},operateDetail = {},operateConfigDto = {},sheetName = {}," +
+                            "itemCodesSet = {},iotLanguageDataList = {}", operate, JSONObject.toJSONString(operateDetail),
+                    JSONObject.toJSONString(operateConfigDto), sheetPage.getSheetName(),
+                    JSONObject.toJSONString(itemCodesSet), JSONObject.toJSONString(iotLanguageDataList));
 
             if (operate == OperateType.COMPARE.getType()) {
-                deviceExcelSheetPage.addAll(
-                        operateHelperService.compareLanguageDatas(operateData.getFileType().getType(), sheetPage, languages,
-                                excelLanguageData, iotLanguageDataList));
+                List<ExcelSheetPage> compareExcelSheetPages =
+                        operateHelperService.compareLanguageDatas(operateDetail, sheetPage, languageIds, excelLanguageData,
+                                iotLanguageDataList);
+                log.info("DeviceFileHandleStrategy compare compareExcelSheetPages = {}", JSONObject.toJSONString(compareExcelSheetPages));
+                deviceExcelSheetPage.addAll(compareExcelSheetPages);
             }
 
             if (operate == OperateType.MERGE.getType()) {
-                deviceExcelSheetPage.addAll(
-                        operateHelperService.mergeLanguageDatas(sheetPage, excelLanguageData, iotLanguageDataList));
+                List<ExcelSheetPage> mergeExcelSheetPages =
+                        operateHelperService.mergeLanguageDatas(operateDetail, sheetPage, excelLanguageData, iotLanguageDataList);
+                log.info("DeviceFileHandleStrategy merge mergeExcelSheetPages = {}", JSONObject.toJSONString(mergeExcelSheetPages));
+                deviceExcelSheetPage.addAll(mergeExcelSheetPages);
             }
         }
         return operateHelperService.getFileResult(filePath, deviceExcelSheetPage);

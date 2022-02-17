@@ -22,11 +22,6 @@ public class MultiLanguagePreConfigLanguageVO implements Serializable {
     /**
      * 多语言Id
      */
-    private String languageId;
-
-    /**
-     * 是否选中
-     */
-    private Boolean selected;
+    private Integer languageId;
 
 }
