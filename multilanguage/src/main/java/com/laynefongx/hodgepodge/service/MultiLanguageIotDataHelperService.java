@@ -1,5 +1,6 @@
 package com.laynefongx.hodgepodge.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.domain.languagedata.IotLanguageData;
 import com.laynefongx.hodgepodge.domain.languagedata.IotLanguageItem;
 import com.laynefongx.hodgepodge.domain.languagedata.SheetLineData;
@@ -12,6 +13,7 @@ import com.laynefongx.hodgepodge.handle.OperateLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -84,14 +86,18 @@ public class MultiLanguageIotDataHelperService {
             Map<String, Map<String, String>> iotDeviceLanguageDataMap =
                     getIotDeviceLanguageDataMap(sheetName, productId, languageIds, itemCodesSet);
             List<IotLanguageData> iotLanguageDataList = new ArrayList<>();
-            for (String key : itemCodesSet) {
+            for (String item : itemCodesSet) {
                 IotLanguageData languageData = new IotLanguageData();
-                languageData.setKey(key);
+                languageData.setKey(item);
                 List<IotLanguageItem> languageItems = new ArrayList<>();
                 for (Map.Entry<String, Map<String, String>> entry : iotDeviceLanguageDataMap.entrySet()) {
-                    String englishName = MultiLangType.getLangType(entry.getKey()).getEnglishName();
-                    String languageValue = entry.getValue().get(key);
-                    languageItems.add(new IotLanguageItem(englishName, languageValue, IndexedColors.WHITE));
+                    String langEnglishName = entry.getKey();// Chinese
+                    Map<String, String> itemsCodesValueMap = entry.getValue(); // key->词条名 value为值
+                    String langValue = itemsCodesValueMap.get(item);
+                    if (StringUtils.isEmpty(langValue)) {
+                        langValue = "";
+                    }
+                    languageItems.add(new IotLanguageItem(langEnglishName, langValue, IndexedColors.WHITE));
                 }
                 languageData.setLanguageItems(languageItems);
                 iotLanguageDataList.add(languageData);
@@ -117,8 +123,9 @@ public class MultiLanguageIotDataHelperService {
      */
     private Map<String, Map<String, String>> getIotDeviceLanguageDataMap(String sheetName, String productId, List<Integer> languageIds,
                                                                          Set<String> itemCodesSet) {
-        Map<String, Map<String, String>> iotDeviceLanguageDataMap = new HashMap<>();
-        return iotDeviceLanguageDataMap;
+        return JSONObject.parseObject(
+                "{\"Chinese\":{\"dp_cur_power\":\"当前功率\",\"dp_power_cycle_status_alwayson\":\"始终打开\",\"dp_luminance_level_40\":\"40%\",\"dp_switch_1_on\":\"开启\",\"dp_luminance_level_20\":\"20%\",\"quickop_dp_switch_1_off\":\"关闭\",\"dp_hw_version\":\"硬件版本\",\"quickop_dp_switch_1\":\"开关1\",\"dp_luminance_level_80\":\"80%\",\"dp_backlight_mode_alwayson\":\"始终打开\",\"dp_luminance_level_60\":\"60%\",\"dp_switch_1_off\":\"关闭\",\"dp_backlight_mode\":\"LED指示灯模式\",\"dp_power_cycle_status_togglestatus\":\"快捷状态\",\"dp_power_cycle_status_previousstatus\":\"之前状态\",\"dp_luminance_level\":\"背景灯亮度\",\"dp_power_cycle_status_alwaysoff\":\"始终关闭\",\"dp_backlight_mode_reserve\":\"与负载相反\",\"dp_luminance_level_0\":\"0%\",\"dp_backlight_mode_alwaysoff\":\"始终关闭\",\"dp_add_ele_unit\":\"kWh\",\"bottomType_week\":\"天\",\"dp_add_ele\":\"电量(kWh)\",\"dp_cur_power_unit\":\"W\",\"quickop_dp_switch_1_on\":\"开启\",\"dp_luminance_level_100\":\"100%\",\"dp_backlight_mode_consistent\":\"与负载相同\",\"dp_switch_1\":\"开关\",\"dp_hw_version_unit\":null,\"dp_power_cycle_status\":null}}",
+                Map.class);
     }
 
     /**

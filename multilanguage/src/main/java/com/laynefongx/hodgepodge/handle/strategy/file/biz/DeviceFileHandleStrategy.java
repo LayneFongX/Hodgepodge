@@ -1,6 +1,5 @@
 package com.laynefongx.hodgepodge.handle.strategy.file.biz;
 
-import com.alibaba.fastjson.JSONObject;
 import com.laynefongx.hodgepodge.domain.languagedata.ExcelSheetPage;
 import com.laynefongx.hodgepodge.domain.languagedata.IotLanguageData;
 import com.laynefongx.hodgepodge.domain.languagedata.SheetLineData;
@@ -67,24 +66,21 @@ public class DeviceFileHandleStrategy implements IFileHandleStrategy {
             // 获取IoT平台多语言数据
             List<IotLanguageData> iotLanguageDataList =
                     iotDataHelperService.getDeviceIotLanguageDataBySheetName(operateDetail, productId, languageIds, itemCodesSet);
-
-            log.info("DeviceFileHandleStrategy handle operate = {},operateDetail = {},operateConfigDto = {},sheetName = {}," +
-                            "itemCodesSet = {},iotLanguageDataList = {}", operate, JSONObject.toJSONString(operateDetail),
-                    JSONObject.toJSONString(operateConfigDto), sheetPage.getSheetName(),
-                    JSONObject.toJSONString(itemCodesSet), JSONObject.toJSONString(iotLanguageDataList));
+            // List<IotLanguageData> iotLanguageDataList = JSONObject.parseObject(
+            //         "[{\"key\":\"offlineHelp\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_link\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"obstructions\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"openBle\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_pleaseCheck\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"bluetoothShareTip\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"retest\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"internetAccess\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"checkHelp\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"appoffline\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_textLinkMore\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"detectPlease\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_textLinkAfter\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_checkHelps\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"alreadyKnow\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_alreadyOffline\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"openBleShareStep\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"deviceOfflineHelpNew\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_textLinkBefore\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"deviceOffline\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_linkFront\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"offline_moreHelp\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"bluetoothShare\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"openBleShare\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"backToHome\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"bluetoothOfflineTip\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"location\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"wifiBadTitle\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"openBlueTooth\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"},{\"key\":\"deviceOfflineHelp\",\"languageItems\":[{\"cellColor\":\"WHITE\",\"lang\":\"Chinese\"}],\"lineColor\":\"WHITE\"}]",
+            //         new TypeReference<>() {
+            //         });
 
             if (operate == OperateType.COMPARE.getType()) {
                 List<ExcelSheetPage> compareExcelSheetPages =
                         operateHelperService.compareLanguageDatas(operateDetail, sheetPage, languageIds, excelLanguageData,
                                 iotLanguageDataList);
-                log.info("DeviceFileHandleStrategy compare compareExcelSheetPages = {}", JSONObject.toJSONString(compareExcelSheetPages));
                 deviceExcelSheetPage.addAll(compareExcelSheetPages);
             }
 
             if (operate == OperateType.MERGE.getType()) {
                 List<ExcelSheetPage> mergeExcelSheetPages =
                         operateHelperService.mergeLanguageDatas(operateDetail, sheetPage, excelLanguageData, iotLanguageDataList);
-                log.info("DeviceFileHandleStrategy merge mergeExcelSheetPages = {}", JSONObject.toJSONString(mergeExcelSheetPages));
                 deviceExcelSheetPage.addAll(mergeExcelSheetPages);
             }
         }

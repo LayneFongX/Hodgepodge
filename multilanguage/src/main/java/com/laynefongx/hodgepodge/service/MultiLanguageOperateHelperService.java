@@ -176,8 +176,7 @@ public class MultiLanguageOperateHelperService {
         for (IotLanguageData iotLanguageData : iotLanguageDataList) {
             String iotKey = iotLanguageData.getKey();
             Map<String, String> iotLanguage2ValueMap =
-                    iotLanguageData.getLanguageItems().stream()
-                            .collect(Collectors.toMap(IotLanguageItem::getLang, IotLanguageItem::getValue));
+                    iotLanguageData.getLanguageItems().stream().collect(Collectors.toMap(x -> x.getLang(), x -> x.getValue()));
 
             Map<String, IotLanguageItem> iotLanguageItemsMap =
                     iotLanguageData.getLanguageItems().stream()
