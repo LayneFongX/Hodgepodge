@@ -244,6 +244,13 @@ public class MultiLanguageCompareHelperService {
             String iotChineseValue = iotLanguageItemValueMap.get(MultiLangType.CHINESE.getEnglishName());
             String iotEnglishValue = iotLanguageItemValueMap.get(MultiLangType.ENGLISH.getEnglishName());
 
+            if (StringUtils.isBlank(iotChineseValue) && StringUtils.isBlank(iotEnglishValue)) {
+                iotLanguageDataMap.get(key).setLineColor(IndexedColors.RED);
+                operateDetail.setReason("中英文均为空");
+                operateDetail.setErrorCode(ErrorType.COMPARE_LANGUAGE_ITEM_ERROR.getError());
+                logService.saveLog(operateDetail);
+            }
+
             if (StringUtils.isBlank(iotChineseValue) && StringUtils.isNotBlank(iotEnglishValue)) {
                 iotLanguageDataMap.get(key).setLineColor(IndexedColors.RED);
                 operateDetail.setReason("中文为空");
